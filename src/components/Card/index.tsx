@@ -37,7 +37,7 @@ const Card = ({
       <Text style={[styles.titleFont, styles.fontWeightBold]}>
         Observeved Time:{' '}
       </Text>
-      <Text>{observedTime}</Text>
+      <Text style={styles.observeBoxTime}>{observedTime}</Text>
     </View>
   </View>
 );

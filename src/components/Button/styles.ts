@@ -10,6 +10,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  containerDisabled: {
+    backgroundColor: 'gray',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
   label: {
     color: 'white',
     fontWeight: '700',

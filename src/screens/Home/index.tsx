@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, ActivityIndicator, Text} from 'react-native';
 import {Card, Button, TextInput} from '@components/index';
 import {styles} from './styles';
 import {handleWeatherServiceCall} from '../../services/ServiceCall';
+import LinearGradient from 'react-native-linear-gradient';
+import {Colors} from '@constants/colors';
 
 const Home = () => {
   const [searchedCity, setSearchedCity] = useState('');
@@ -20,7 +22,6 @@ const Home = () => {
       const currentWeatherData: any = await handleWeatherServiceCall(
         searchedCity,
       );
-      console.log('currentWeatherData', currentWeatherData);
       if (currentWeatherData?.data?.current) {
         setWeatherData(currentWeatherData?.data);
       }
@@ -29,8 +30,9 @@ const Home = () => {
       setLoading(false);
     }
   };
-  console.log('searchedCity', weatherData);
-  useEffect(() => {}, []);
+  const handleDisableCase = () => {
+    return searchedCity === '';
+  };
 
   if (loading) {
     return (
@@ -40,27 +42,35 @@ const Home = () => {
     );
   }
   return (
-    <View style={styles.container}>
-      <TextInput placeholder="Enter City" onChangeText={handleCitySearch} />
-      <Button
-        title="Get Weather"
-        disabled={searchedCity === ''}
-        onPress={handleSearchEvent}
-      />
-      {weatherData ? (
-        <Card
-          cityName={weatherData?.location.name}
-          currentTemp={weatherData?.current.temperature}
-          condition={weatherData?.current?.weather_descriptions[0]}
-          weatherIconUrl={weatherData?.current?.weather_icons[0]}
-          observedTime={weatherData?.current.observation_time}
+    <LinearGradient
+      colors={[
+        Colors.gredients.top,
+        Colors.gredients.center,
+        Colors.gredients.bottom,
+      ]}
+      style={styles.linearGradient}>
+      <View style={styles.container}>
+        <TextInput placeholder="Enter City" onChangeText={handleCitySearch} />
+        <Button
+          title="Get Weather"
+          disabled={handleDisableCase()}
+          onPress={handleSearchEvent}
         />
-      ) : (
-        <View style={styles.noRecord}>
-          <Text>No Record Found</Text>
-        </View>
-      )}
-    </View>
+        {weatherData ? (
+          <Card
+            cityName={weatherData?.location.name}
+            currentTemp={weatherData?.current.temperature}
+            condition={weatherData?.current?.weather_descriptions[0]}
+            weatherIconUrl={weatherData?.current?.weather_icons[0]}
+            observedTime={weatherData?.current.observation_time}
+          />
+        ) : (
+          <View style={styles.noRecord}>
+            <Text>No Record Found</Text>
+          </View>
+        )}
+      </View>
+    </LinearGradient>
   );
 };
 

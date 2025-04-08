@@ -5,9 +5,12 @@ import {IButton} from './types';
 import {styles} from './styles';
 
 const Button = (props: IButton) => {
-  const {disabled, loading, title, titleStyle, containerStyle, ...restProps} = props;
+  const {disabled, loading, title, titleStyle, containerStyle, ...restProps} =
+    props;
 
-  const buttonContainerStyle = {...containerStyle, ...styles.container};
+  const buttonContainerStyle = disabled
+    ? {...containerStyle, ...styles.containerDisabled}
+    : {...containerStyle, ...styles.container};
   const buttonTitleStyle = {...titleStyle, ...styles.label};
 
   return (
@@ -16,7 +19,7 @@ const Button = (props: IButton) => {
       disabled={disabled}
       style={buttonContainerStyle}>
       {loading ? (
-        <ActivityIndicator testID="loading-indicator"/>
+        <ActivityIndicator testID="loading-indicator" />
       ) : (
         <Text style={buttonTitleStyle}>{title}</Text>
       )}

@@ -35,6 +35,10 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 15,
   },
+  observeBoxTime: {
+    alignSelf: 'center',
+    top: 2,
+  },
   weatherIconStyle: {
     width: 64,
     height: 64,
